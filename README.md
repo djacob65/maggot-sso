@@ -39,7 +39,7 @@ postgres-image    latest        5f01f1db17f8     11 days ago      431MB
 
 ## configuration
 
-* You need to edit the [local.conf](blob/main/local.conf) file, then adapt parameters, especially the following ones
+* You need to edit the [local.conf](local.conf) file, then adapt parameters, especially the following ones
 
 ```shell
 # Host
@@ -63,7 +63,7 @@ WAITMSG=1
 
 ```
 
-* You need to also edit the [Keycloak/keycloak.env](#) file, then change passwords :
+* You need to also edit the [Keycloak/keycloak.env](keycloak/keycloak.env) file, then change passwords :
 
 ```shell
 KC_DB_USERNAME=keycloak
@@ -74,7 +74,7 @@ KEYCLOAK_ADMIN_PASSWORD=adminpass
 
 * You must first start the SSO layer (see below) to access the keycloak interface (here http://10.0.0.106:8080). Once the different elements are configured, the settings in the run file must be modified to match those entered in Keycloak. A restart of the SSO layer will therefore be necessary to take the new settings into account.
 
-* <b>Note</b>: the [nginx.conf](blob/main/nginx/nginx.conf) file is automatically generated based on the corresponding template [nginx-conf.template](blob/main/nginx/nginx-conf.template) file.
+* <b>Note</b>: the [nginx.conf](nginx/nginx.conf) file is automatically generated based on the corresponding template [nginx-conf.template](nginx/nginx-conf.template) file.
 
 <br>
 
