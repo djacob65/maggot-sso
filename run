@@ -1,0 +1,123 @@
+#!/bin/bash
+MYDIR=`dirname $0` && [ ! `echo "$0" | grep '^\/'` ] && MYDIR=`pwd`/$MYDIR
+DOCKER='sudo '`which docker`
+
+# Host
+HOST_NAME=10.0.0.106 # Host Name or IP
+
+# Application
+APP_NAME=mmdt-web    # container name of Maggot web application
+APP_PORT=80          # http port inside the Maggot web application container
+APP_BASE_URL=maggot  # Base URL of Maggot web application
+
+# Nginx with OIDC
+NGINX_IMAGE=nginx-image
+NGINX_CONTAINER=nginx
+NGINX_PORT=80
+
+# Postgres
+PG_IMAGE=postgres-image
+PG_CONTAINER=postgres
+PG_PORT=5432
+PG_VOL=postgres_data
+
+# Keycloak - Master
+KC_IMAGE=keycloak-image
+KC_CONTAINER=keycloak
+KC_PORT=8080
+
+# Keycloak - Client
+KC_REALM=Maggot
+KC_CLIENT=maggot
+KC_SECRET=SOCbsBsXiFYzWd2cWTRangkCqJYU6vQy
+
+# Network
+MYNET=my-net
+
+# Use template
+USETMPL=1
+
+# Wait message
+WAITMSG=1
+
+# Replace default configuration parameters with local ones if exist
+[ -f $MYDIR/local.conf ] && . $MYDIR/local.conf
+
+usage() {
+    echo "usage: sh $0 help|build|delimage|ps|start|stop"
+    exit 1
+}
+
+
+CMD=$1
+
+case "$CMD" in
+    help) usage
+    ;;
+    build)
+        (cd nginx;    $DOCKER build -t $NGINX_IMAGE . )
+        (cd postgres; $DOCKER build -t $PG_IMAGE .    )
+        (cd keycloak; $DOCKER build -t $KC_IMAGE .    )
+    ;;
+    delimages)
+        $DOCKER rmi -f $($DOCKER images | grep '-image' | sed -e "s/  \+/@/g" | cut -d'@' -f3)
+    ;;
+    start)
+        # postgres volume
+        RET=$($DOCKER volume ls | grep $PG_VOL 1>/dev/null 2>/dev/null; echo $?)
+        [ $RET -ne 0 ] && $DOCKER volume create --driver local $PG_VOL
+        # Create Network
+        RET=$($DOCKER network ls | grep $MYNET 1>/dev/null 2>/dev/null; echo $?)
+        [ $RET -ne 0 ] && $DOCKER network create -d bridge $MYNET
+        # Create nginx configuration file based on the template
+        if [ $USETMPL -eq 1 ]; then
+            sudo cat $MYDIR/nginx/nginx-conf.template | \
+                sed -e "s/<<HOST-NAME>>/$HOST_NAME/g" -e "s/<<APP-PORT>>/$APP_PORT/g" -e "s/<<APP-NAME>>/$APP_NAME/g" \
+                    -e "s/<<APP-BASE-URL>>/$APP_BASE_URL/g" \
+                    -e "s/<<KC-CLIENT>>/$KC_CLIENT/g" -e "s/<<KC-SECRET>>/$KC_SECRET/g" \
+                    -e "s/<<KC-REALM>>/$KC_REALM/g" -e "s/<<KC-PORT>>/$KC_PORT/g" > $MYDIR/nginx/nginx.conf
+        fi
+        # Start Postgres
+        echo -n "Start $PG_CONTAINER ($PG_IMAGE) (port $PG_PORT) : "
+        $DOCKER run -d -p $PG_PORT:5432 --network=$MYNET -v $PG_VOL:/var/lib/postgresql/data --name $PG_CONTAINER $PG_IMAGE
+        # Start Keycloak
+        echo -n "Start $KC_CONTAINER ($KC_IMAGE) (port $KC_PORT) : "
+        $DOCKER run -d -p $KC_PORT:8080 --network=$MYNET --env-file $MYDIR/keycloak/keycloak.env --name $KC_CONTAINER $KC_IMAGE start \
+                    --log-level=info --log="file" --log-file="/tmp/keycloak.log"
+        # Start Nginx
+        echo -n "Start $NGINX_CONTAINER ($NGINX_IMAGE) (port $NGINX_PORT) :"
+        $DOCKER run -d -p $NGINX_PORT:80 --network=$MYNET \
+              -v $MYDIR/nginx/nginx.conf:/etc/nginx/conf.d/default.conf \
+              -v $MYDIR/nginx/lua:/opt/lua \
+              --name $NGINX_CONTAINER $NGINX_IMAGE
+        if [ $WAITMSG  -eq 1 ]; then
+           echo -n "Wait for Keycloak to finish its setup ... "
+           while [ $($DOCKER exec -t $KC_CONTAINER /bin/bash -c "cat /tmp/keycloak.log" | wc -l) -lt 10 ]; do sleep 1; done
+           echo OK
+        fi
+    ;;
+    stop)
+        $DOCKER network disconnect $MYNET $NGINX_CONTAINER
+        $DOCKER network disconnect $MYNET $KC_CONTAINER
+        $DOCKER network disconnect $MYNET $PG_CONTAINER
+        echo "Stop $NGINX_CONTAINER $KC_CONTAINER $PG_CONTAINER"
+        $DOCKER rm -f $NGINX_CONTAINER $KC_CONTAINER $PG_CONTAINER
+    ;;
+    restart)
+       sh $0 stop
+       sh $0 start
+    ;;
+    http) # force HTTP protocol to be authorised
+        KC_CMD=/opt/keycloak/bin/kcadm.sh
+        KC_OPT1="config credentials --realm master --server http://$HOST_IP:$KC_PORT --user admin"
+        KC_OPT2="update realms/master -s sslRequired=NONE"
+        $DOCKER exec -t $KC_CONTAINER /bin/bash -c "$KC_CMD $KC_OPT1 --password=\"\$KEYCLOAK_ADMIN_PASSWORD\"; $KC_CMD $KC_OPT2"
+    ;;
+    ps)
+        $DOCKER ps | head -1
+        $DOCKER ps | grep -E "($NGINX_CONTAINER|$KC_CONTAINER|$PG_CONTAINER)"
+    ;;
+    *) usage
+esac
+
+exit 0
