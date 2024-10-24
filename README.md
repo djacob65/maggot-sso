@@ -39,19 +39,28 @@ postgres-image    latest        5f01f1db17f8     11 days ago      431MB
 
 ## configuration
 
-* You need to edit the [local.conf](#) file, then adapt parameters, especially the following ones
+* You need to edit the [local.conf](blob/main/local.conf) file, then adapt parameters, especially the following ones
 
 ```shell
-# Host 
-HOST_IP=10.0.0.106
-APP_PORT=8000
+# Host
+HOST_NAME=10.0.0.106 # Host Name or IP
 
-# Keycloak : realm, clients & Secret Codes
-KC_REALM=myrealm
-NGINX_CLIENT=nginx
-NGINX_SECRET=<secret code for nginx>
-API_CLIENT=api-client
-API_SECRET=<secret code for api-client>
+# Application
+APP_NAME=mmdt-web    # container name of Maggot web application
+APP_PORT=80          # http port inside the Maggot web application container
+APP_BASE_URL=maggot  # Base URL of Maggot web application
+
+# Keycloak - Client
+KC_REALM=Maggot
+KC_CLIENT=maggot
+KC_SECRET=SOCbsBsXiFYzWd2cWTRangkCqJYU6vQy
+
+# Use template
+USETMPL=1
+
+# Wait message
+WAITMSG=1
+
 ```
 
 * You need to also edit the [Keycloak/keycloak.env](#) file, then change passwords :
@@ -65,7 +74,7 @@ KEYCLOAK_ADMIN_PASSWORD=adminpass
 
 * You must first start the SSO layer (see below) to access the keycloak interface (here http://10.0.0.106:8080). Once the different elements are configured, the settings in the run file must be modified to match those entered in Keycloak. A restart of the SSO layer will therefore be necessary to take the new settings into account.
 
-* <b>Note</b>: the [nginx.conf](#) file is automatically generated based on the corresponding template [nginx-conf.template](#) file.
+* <b>Note</b>: the [nginx.conf](blob/main/nginx/nginx.conf) file is automatically generated based on the corresponding template [nginx-conf.template](blob/main/nginx/nginx-conf.template) file.
 
 <br>
 
