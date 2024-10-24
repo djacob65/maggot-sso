@@ -3,7 +3,7 @@
 ## Purpose
 
 * Implement [Single Sign-On](https://en.wikipedia.org/wiki/Single_sign-on) (SSO) authentication through a web application without modifying it.
-* See the [Wiki page](/%2E%2E/wikis/Single-Sign-On)
+* See the [Wiki page](%2E%2E/wikis/Single-Sign-On)
 
 <br>
 
@@ -17,8 +17,7 @@ Requirements:
 
         Step 1: Clone this repository, then `cd` to your clone path.
 
-            $ ssh -T git@forgemia.inra.fr
-            $ git clone git@forgemia.inra.fr:wapnmr/sso.git
+            $ git clone https://github.com/djacob65/maggot-sso.git
             $ cd sso
 
         Step 2: Create the docker image:
