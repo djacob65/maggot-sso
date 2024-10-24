@@ -55,15 +55,18 @@ KC_REALM=Maggot
 KC_CLIENT=maggot
 KC_SECRET=SOCbsBsXiFYzWd2cWTRangkCqJYU6vQy
 
+# Keycloak - API Client
+API_CLIENT=api-Maggot
+API_SECRET=uV2lDobVxTXEvJsoKmW1eaXC8DVFmGHu
+
 # Use template
 USETMPL=1
 
 # Wait message
 WAITMSG=1
-
 ```
 
-* You need to also edit the [Keycloak/keycloak.env](keycloak/keycloak.env) file, then change passwords :
+* You need to also edit the [keycloak.env](keycloak/keycloak.env) file, then change passwords :
 
 ```shell
 KC_DB_USERNAME=keycloak

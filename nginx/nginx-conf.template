@@ -16,7 +16,7 @@ resolver 8.8.8.8;
 lua_shared_dict introspection 10m;
 
 # Storage for Application session
-lua_shared_dict session_cache_<<KC-CLIENT>> 10m; 
+lua_shared_dict session_cache_<<KC-REALM>> 10m; 
 
 server {
        listen 0.0.0.0:80 default_server;
@@ -39,32 +39,48 @@ server {
 
        location <<APP-BASE-URL>>/ {
           access_by_lua_block {
-             require("sessions_store")
-             local opts = {
-                redirect_uri_path = "/<<APP_BASE_URL>>/<<KC-REALM>>/redirect_uri",
-                discovery = "http://<<HOST-NAME>>:<<KC-PORT>>/realms/<<KC-REALM>>/.well-known/openid-configuration",
-                client_id = "<<KC-CLIENT>>",
-                client_secret = "<<KC-SECRET>>",
-                scope = "openid email",
-                access_token_expires_leeway = 30,
-                renew_access_token_on_expiry = true,
-                redirect_uri_scheme = "http",
-                logout_path = "/<<APP_BASE_URL>>/logout",
-                revoke_tokens_on_logout = true,
-                redirect_after_logout_uri = "http://<<HOST-NAME>>:<<KC-PORT>>/realms/<<KC-REALM>>/protocol/openid-connect/logout?client_id=<<KC-CLIENT>>",
-                redirect_after_logout_with_id_token_hint = false,
-                session_contents = {id_token=true, access_token=true},
-                session_store = shared_dict_session_store("session_cache_<<KC-CLIENT>>")
-             }
-             -- call introspect for OAuth 2.0 Bearer Access Token validation
-             local res, err = require("resty.openidc").authenticate(opts,nil,nil,{name=opts.client_id, audience="<<KC-CLIENT>>"})
-             if ( err  or ( res.id_token.aud ~= opts.client_id ) ) then
-                ngx.status = 403
-                ngx.exit(ngx.HTTP_FORBIDDEN)
+             if ngx.req.get_headers()["API-KEY"] ~= nil then
+                local opts = {
+                   discovery = "http://<<HOST-NAME>>:<<KC-PORT>>/realms/<<KC-REALM>>/.well-known/openid-configuration",
+                   client_id = "<<API-CLIENT>>",
+                   client_secret = "<<API-SECRET>>",
+                   session_contents = {id_token=true}
+                }
+                -- call bearer_jwt_verify for OAuth 2.0 JWT validation
+                local res, err = require("resty.openidc").bearer_jwt_verify(opts)
+                if err then
+                   ngx.status = 403
+                   ngx.exit(ngx.HTTP_FORBIDDEN)
+                end
+                ngx.req.set_header("X-Token", res.access_token)
+             else
+                require("sessions_store")
+                local opts = {
+                   redirect_uri_path = "/<<APP_BASE_URL>>/<<KC-REALM>>/redirect_uri",
+                   discovery = "http://<<HOST-NAME>>:<<KC-PORT>>/realms/<<KC-REALM>>/.well-known/openid-configuration",
+                   client_id = "<<KC-CLIENT>>",
+                   client_secret = "<<KC-SECRET>>",
+                   scope = "openid email",
+                   access_token_expires_leeway = 30,
+                   renew_access_token_on_expiry = true,
+                   redirect_uri_scheme = "http",
+                   logout_path = "/<<APP_BASE_URL>>/logout",
+                   revoke_tokens_on_logout = true,
+                   redirect_after_logout_uri = "http://<<HOST-NAME>>:<<KC-PORT>>/realms/<<KC-REALM>>/protocol/openid-connect/logout?client_id=<<KC-CLIENT>>",
+                   redirect_after_logout_with_id_token_hint = false,
+                   session_contents = {id_token=true, access_token=true},
+                   session_store = shared_dict_session_store("session_cache_<<KC-REALM>>")
+                }
+                -- call introspect for OAuth 2.0 Bearer Access Token validation
+                local res, err = require("resty.openidc").authenticate(opts,nil,nil,{name=opts.client_id, audience="<<KC-CLIENT>>"})
+                if ( err  or ( res.id_token.aud ~= opts.client_id ) ) then
+                   ngx.status = 403
+                   ngx.exit(ngx.HTTP_FORBIDDEN)
+                end
+                ngx.req.set_header("KC-Token", res.access_token)
+                ngx.req.set_header("Authorization", "Bearer " .. res.access_token)
+                ngx.header['Authorization'] = "Bearer " .. res.access_token
              end
-             ngx.req.set_header("KC-Token", res.access_token)
-             ngx.req.set_header("Authorization", "Bearer " .. res.access_token)
-             ngx.header['Authorization'] = "Bearer " .. res.access_token
           }
 
           proxy_set_header Host $host;

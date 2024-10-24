@@ -31,6 +31,10 @@ KC_REALM=Maggot
 KC_CLIENT=maggot
 KC_SECRET=SOCbsBsXiFYzWd2cWTRangkCqJYU6vQy
 
+# Keycloak - API Client
+API_CLIENT=api-Maggot
+API_SECRET=uV2lDobVxTXEvJsoKmW1eaXC8DVFmGHu
+
 # Network
 MYNET=my-net
 
@@ -75,6 +79,7 @@ case "$CMD" in
                 sed -e "s/<<HOST-NAME>>/$HOST_NAME/g" -e "s/<<APP-PORT>>/$APP_PORT/g" -e "s/<<APP-NAME>>/$APP_NAME/g" \
                     -e "s/<<APP-BASE-URL>>/$APP_BASE_URL/g" \
                     -e "s/<<KC-CLIENT>>/$KC_CLIENT/g" -e "s/<<KC-SECRET>>/$KC_SECRET/g" \
+                    -e "s/<<API-CLIENT>>/$API_CLIENT/g" -e "s/<<API-SECRET>>/$API_SECRET/g" \
                     -e "s/<<KC-REALM>>/$KC_REALM/g" -e "s/<<KC-PORT>>/$KC_PORT/g" > $MYDIR/nginx/nginx.conf
         fi
         # Start Postgres
