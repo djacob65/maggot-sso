@@ -53,11 +53,11 @@ APP_BASE_URL=maggot  # Base URL of Maggot web application
 # Keycloak - Client
 KC_REALM=Maggot
 KC_CLIENT=maggot
-KC_SECRET=SOCbsBsXiFYzWd2cWTRangkCqJYU6vQy
+KC_SECRET=GUWHrrBXnJp3dtT3Nl15olqDgyxaGGx2
 
 # Keycloak - API Client
 API_CLIENT=api-Maggot
-API_SECRET=uV2lDobVxTXEvJsoKmW1eaXC8DVFmGHu
+API_SECRET=FYFBOxpWl6spQ9of62ljGhR7v6NcnBS7
 
 # Use template
 USETMPL=1

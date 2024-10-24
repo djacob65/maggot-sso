@@ -1,4 +1,4 @@
-FROM quay.io/keycloak/keycloak:23.0.7
+FROM quay.io/keycloak/keycloak:26.0.1
 
 # Environment for Apache
 ENV \
