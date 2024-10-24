@@ -3,7 +3,7 @@
 ## Purpose
 
 * Implement [Single Sign-On](https://en.wikipedia.org/wiki/Single_sign-on) (SSO) authentication through a web application without modifying it.
-* See the [Wiki page](%2E%2E/wikis/Single-Sign-On)
+* See the [Wiki page](wikis/Single-Sign-On)
 
 <br>
 
