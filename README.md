@@ -48,7 +48,7 @@ HOST_NAME=10.0.0.106 # Host Name or IP
 # Application
 APP_NAME=mmdt-web    # container name of Maggot web application
 APP_PORT=80          # http port inside the Maggot web application container
-APP_BASE_URL=maggot  # Base URL of Maggot web application
+APP_BASE_URL=/maggot # Base URL of Maggot web application
 
 # Keycloak - Client
 KC_REALM=Maggot
@@ -75,11 +75,11 @@ KEYCLOAK_ADMIN=admin
 KEYCLOAK_ADMIN_PASSWORD=adminpass
 ```
 
-* You must first start the SSO layer (see below) to access the keycloak interface (here http://10.0.0.106:8080). Once the different elements are configured, the settings in the run file must be modified to match those entered in Keycloak. A restart of the SSO layer will therefore be necessary to take the new settings into account.
-
 * If the USETMPL is equal to 1 then the [nginx.conf](nginx/nginx.conf) file will be automatically generated based on the corresponding template [nginx-conf.template](nginx/nginx-conf.template) file. Otherwise it will be used as it is.
 
 * if the WAITMSG is equal to 1 then a waiting message will be appear after starting, indicating when the keycloak will have finished its configuration (~ 15 sec)
+
+* You must first start the SSO layer (see below) to access the keycloak interface (here http://10.0.0.106:8080). Once the different elements are configured, the settings in the run file must be modified to match those entered in Keycloak. A restart of the SSO layer will therefore be necessary to take the new settings into account.
 
 <br>
 
