@@ -128,6 +128,14 @@ sh ./run http
 
 <br>
 
+* Based on the default configuration provided (see above):
+    
+      * The Maggot URL is http://10.0.0.106/maggot/
+
+      * The Keycloak interface URL is http://10.0.0.106:8080
+
+<br>
+
 
 ## License
 
