@@ -29,11 +29,11 @@ KC_PORT=8080
 # Keycloak - Client
 KC_REALM=Maggot
 KC_CLIENT=maggot
-KC_SECRET=GUWHrrBXnJp3dtT3Nl15olqDgyxaGGx2
+KC_SECRET=
 
 # Keycloak - API Client
 API_CLIENT=api-Maggot
-API_SECRET=FYFBOxpWl6spQ9of62ljGhR7v6NcnBS7
+API_SECRET=
 
 # Network
 MYNET=my-net
@@ -114,7 +114,7 @@ case "$CMD" in
     ;;
     http) # force HTTP protocol to be authorised
         KC_CMD=/opt/keycloak/bin/kcadm.sh
-        KC_OPT1="config credentials --realm master --server http://$HOST_IP:$KC_PORT --user admin"
+        KC_OPT1="config credentials --realm master --server http://$HOST_NAME:$KC_PORT --user admin"
         KC_OPT2="update realms/master -s sslRequired=NONE"
         $DOCKER exec -t $KC_CONTAINER /bin/bash -c "$KC_CMD $KC_OPT1 --password=\"\$KEYCLOAK_ADMIN_PASSWORD\"; $KC_CMD $KC_OPT2"
     ;;

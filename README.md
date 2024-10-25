@@ -78,9 +78,13 @@ KEYCLOAK_ADMIN=admin
 KEYCLOAK_ADMIN_PASSWORD=adminpass
 ```
 
+### Notes
+
 * For Keycloak parameters, see the [Wiki page](https://github.com/djacob65/maggot-sso/wiki/Single-Sign-On)
 
 * You must be careful that the network name ('my-net') is the same as the one declared in Maggot's run and/or local.conf files.
+
+* In case Maggot must be accessible from outside of your network (internet), you must ensure that the application web port (80) as well as the keycloak web port (8080) are open and accessible beyond the various firewalls, starting with the one that is possibly installed on the host machine.
 
 * If USETMPL is equal to 1 then the [nginx.conf](nginx/nginx.conf) file will be automatically generated based on the corresponding template [nginx-conf.template](nginx/nginx-conf.template) file. Otherwise it will be used as it is.
 
