@@ -2,8 +2,11 @@
 
 ## Purpose
 
-* Implement [Single Sign-On](https://en.wikipedia.org/wiki/Single_sign-on) (SSO) authentication for a web application without modifying it.
-* See the [Wiki page](https://github.com/djacob65/maggot-sso/wiki/Single-Sign-On)
+* Implement [Single Sign-On](https://en.wikipedia.org/wiki/Single_sign-on) (SSO) authentication for the Maggot application.
+
+* For management within a collective that goes beyond a simple intranet, it may be necessary to set up an authentication layer. Setting up such a layer can be done independently of the Maggot tool, i.e. without modifying its code or configuration. An SSO implementation is proposed online, which can serve as a basis for a larger configuration.
+
+* See the [Wiki page](https://github.com/djacob65/maggot-sso/wiki/Single-Sign-On) for more details
 
 <br>
 
