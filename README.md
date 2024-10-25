@@ -2,7 +2,7 @@
 
 ## Purpose
 
-* Implement [Single Sign-On](https://en.wikipedia.org/wiki/Single_sign-on) (SSO) authentication through a web application without modifying it.
+* Implement [Single Sign-On](https://en.wikipedia.org/wiki/Single_sign-on) (SSO) authentication for a web application without modifying it.
 * See the [Wiki page](https://github.com/djacob65/maggot-sso/wiki/Single-Sign-On)
 
 <br>
@@ -77,7 +77,9 @@ KEYCLOAK_ADMIN_PASSWORD=adminpass
 
 * You must first start the SSO layer (see below) to access the keycloak interface (here http://10.0.0.106:8080). Once the different elements are configured, the settings in the run file must be modified to match those entered in Keycloak. A restart of the SSO layer will therefore be necessary to take the new settings into account.
 
-* <b>Note</b>: the [nginx.conf](nginx/nginx.conf) file is automatically generated based on the corresponding template [nginx-conf.template](nginx/nginx-conf.template) file.
+* If the USETMPL is equal to 1 then the [nginx.conf](nginx/nginx.conf) file will be automatically generated based on the corresponding template [nginx-conf.template](nginx/nginx-conf.template) file. Otherwise it will be used as it is.
+
+* if the WAITMSG is equal to 1 then a waiting message will be appear after starting, indicating when the keycloak will have finished its configuration (~ 15 sec)
 
 <br>
 
