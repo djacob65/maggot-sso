@@ -80,9 +80,11 @@ KEYCLOAK_ADMIN_PASSWORD=adminpass
 
 ### Notes
 
+* The APP_NAME parameter must be equal to the container name of Maggot web application defined in the [run and/or local.conf files.](https://github.com/inrae/pgd-mmdt/blob/main/run).
+
 * For Keycloak parameters, see the [Wiki page](https://github.com/djacob65/maggot-sso/wiki/Single-Sign-On)
 
-* You must be careful that the network name ('my-net') is the same as the one declared in Maggot's run and/or local.conf files.
+* You must be careful that the network name ('my-net') is the same as the one declared in Maggot's [run and/or local.conf files.](https://github.com/inrae/pgd-mmdt/blob/main/run).
 
 * In case Maggot must be accessible from outside of your network (internet), you must ensure that the application web port (80) as well as the keycloak web port (8080) are open and accessible beyond the various firewalls, starting with the one that is possibly installed on the host machine.
 
