@@ -59,6 +59,9 @@ KC_SECRET=GUWHrrBXnJp3dtT3Nl15olqDgyxaGGx2
 API_CLIENT=api-Maggot
 API_SECRET=FYFBOxpWl6spQ9of62ljGhR7v6NcnBS7
 
+# Network
+MYNET=my-net
+
 # Use template
 USETMPL=1
 
@@ -76,6 +79,8 @@ KEYCLOAK_ADMIN_PASSWORD=adminpass
 ```
 
 * For Keycloak parameters, see the [Wiki page](https://github.com/djacob65/maggot-sso/wiki/Single-Sign-On)
+
+* You must be careful that the network name ('my-net') is the same as the one declared in Maggot's run and/or local.conf files.
 
 * If USETMPL is equal to 1 then the [nginx.conf](nginx/nginx.conf) file will be automatically generated based on the corresponding template [nginx-conf.template](nginx/nginx-conf.template) file. Otherwise it will be used as it is.
 
