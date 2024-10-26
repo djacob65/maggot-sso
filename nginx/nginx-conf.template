@@ -16,7 +16,7 @@ resolver 8.8.8.8;
 lua_shared_dict introspection 10m;
 
 # Storage for Application session
-lua_shared_dict session_cache_<<KC-REALM>> 10m; 
+lua_shared_dict session_cache_realm1 10m; 
 
 server {
        listen 0.0.0.0:80 default_server;
@@ -69,11 +69,11 @@ server {
                    redirect_after_logout_uri = "http://<<HOST-NAME>>:<<KC-PORT>>/realms/<<KC-REALM>>/protocol/openid-connect/logout?client_id=<<KC-CLIENT>>",
                    redirect_after_logout_with_id_token_hint = false,
                    session_contents = {id_token=true, access_token=true},
-                   session_store = shared_dict_session_store("session_cache_<<KC-REALM>>")
+                   session_store = shared_dict_session_store("session_cache_realm1")
                 }
                 -- call introspect for OAuth 2.0 Bearer Access Token validation
-                local res, err = require("resty.openidc").authenticate(opts,nil,nil,{name=opts.client_id, audience="<<KC-CLIENT>>"})
-                if ( err  or ( res.id_token.azp ~= opts.client_id ) ) then
+                local res, err = require("resty.openidc").authenticate(opts,nil,nil,{name=opts.client_id, audience=opts.client_id})
+                if err then
                    ngx.status = 403
                    ngx.exit(ngx.HTTP_FORBIDDEN)
                 end
