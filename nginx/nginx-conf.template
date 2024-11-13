@@ -57,7 +57,7 @@ server {
               else
                  require("sessions_store")
                  local opts = {
-                    redirect_uri_path = "/<<APP_BASE_URL>>/<<KC-REALM>>/redirect_uri",
+                    redirect_uri_path = "<<APP-BASE-URL>>/<<KC-REALM>>/redirect_uri",
                     discovery = "http://<<HOST-NAME>>:<<KC-PORT>>/realms/<<KC-REALM>>/.well-known/openid-configuration",
                     client_id = "<<KC-CLIENT>>",
                     client_secret = "<<KC-SECRET>>",
@@ -65,7 +65,7 @@ server {
                     access_token_expires_leeway = 30,
                     renew_access_token_on_expiry = true,
                     redirect_uri_scheme = "http",
-                    logout_path = "/<<APP_BASE_URL>>/logout",
+                    logout_path = "<<APP-BASE-URL>>/logout",
                     revoke_tokens_on_logout = true,
                     redirect_after_logout_uri = "http://<<HOST-NAME>>:<<KC-PORT>>/realms/<<KC-REALM>>/protocol/openid-connect/logout?client_id=<<KC-CLIENT>>",
                     redirect_after_logout_with_id_token_hint = false,
