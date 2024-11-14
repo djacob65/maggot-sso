@@ -101,6 +101,8 @@ KEYCLOAK_ADMIN_PASSWORD=adminpass
 
 ## Usage
 
+* **Note**: The Maggot application must be started first. Otherwise, an error occurs when starting the nginx container because the server "APP_NAME" (the APP_NAME must be the name of the maggot web application container) is not recognized as available.
+
 * To start the *SSO* layer 
 
 ```shell
