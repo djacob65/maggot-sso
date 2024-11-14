@@ -87,7 +87,9 @@ case "$CMD" in
         $DOCKER run -d -p $PG_PORT:5432 --network=$MYNET -v $PG_VOL:/var/lib/postgresql/data --name $PG_CONTAINER $PG_IMAGE
         # Start Keycloak
         echo -n "Start $KC_CONTAINER ($KC_IMAGE) (port $KC_PORT) : "
-        $DOCKER run -d -p $KC_PORT:8080 --network=$MYNET --env-file $MYDIR/keycloak/keycloak.env --name $KC_CONTAINER $KC_IMAGE start \
+        $DOCKER run -d -p $KC_PORT:8080 --network=$MYNET --env-file $MYDIR/keycloak/keycloak.env \
+                    -v $MYDIR/keycloak/themes:/opt/keycloak/themes \
+                    --name $KC_CONTAINER $KC_IMAGE start \
                     --log-level=info --log="file" --log-file="/tmp/keycloak.log"
         # Start Nginx
         echo -n "Start $NGINX_CONTAINER ($NGINX_IMAGE) (port $NGINX_PORT) :"

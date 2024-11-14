@@ -1,0 +1,41 @@
+.pf-v5-c-login__container {
+    grid-template-areas: "main";
+    grid-template-columns: 34rem;
+}
+
+h1#kc-page-title {
+    font-size: x-large;
+    font-weight: bold;
+	margin-top: 20px;
+}
+
+.login-pf body {
+    background: url("../img/background.png") no-repeat center center fixed;
+    background-size: cover;
+    height: 100%;
+}
+
+pf-m-primary {
+    color: black !important;
+    background-color: #B646AE !important;
+}
+
+.card-pf {
+   height: 280px;
+   margin: 0 auto;
+   box-shadow: var(--pf-global--BoxShadow--lg);
+   padding: 0 20px;
+   max-width: 500px;
+   border-top: 4px solid;
+   border-color: #B646AE;
+   background-color: #fff;
+}
+
+#kc-header-wrapper {
+   content: url("../img/logo-trans-2.png");
+   position: relative;
+   margin: auto;
+   display: block;
+   width: 500px;
+   height: auto;
+}
