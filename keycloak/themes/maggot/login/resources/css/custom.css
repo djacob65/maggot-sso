@@ -21,7 +21,7 @@ pf-m-primary {
 }
 
 .card-pf {
-   height: 280px;
+   height: auto;
    margin: 0 auto;
    box-shadow: var(--pf-global--BoxShadow--lg);
    padding: 0 20px;
