@@ -1,3 +1,8 @@
+.login-pf-page .login-pf-page-header {
+   margin-bottom: 0px;
+}
+
+
 .pf-v5-c-login__container {
     grid-template-areas: "main";
     grid-template-columns: 34rem;
@@ -10,7 +15,7 @@ h1#kc-page-title {
 }
 
 .login-pf body {
-    background: url("../img/background.png") no-repeat center center fixed;
+    background: url("../img/keycloak-bg.png") no-repeat center center fixed;
     background-size: cover;
     height: 100%;
 }
@@ -21,7 +26,7 @@ pf-m-primary {
 }
 
 .card-pf {
-   height: auto;
+   /*height: 280px;*/
    margin: 0 auto;
    box-shadow: var(--pf-global--BoxShadow--lg);
    padding: 0 20px;
@@ -36,6 +41,6 @@ pf-m-primary {
    position: relative;
    margin: auto;
    display: block;
-   width: 500px;
-   height: auto;
+   width: 300px;
+   height: 200px;
 }
