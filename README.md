@@ -89,10 +89,10 @@ KEYCLOAK_ADMIN_PASSWORD=adminpass
 KC_HOSTNAME=mydomain.fr
 ```
 
-* For a secure environment (SSL), You must have up-to-date SSL certificates. Therefore, we recommend using the certificates provided by [Let's Encrypt](https://letsencrypt.org/) and using the [getssl](https://github.com/srvrco/getssl) tool. See the corresponding [README](getssl/README.md) file.
-
 
 ### Notes
+
+* For a secure environment (SSL), You must have up-to-date SSL certificates. Therefore, we recommend using the certificates provided by [Let's Encrypt](https://letsencrypt.org/) and using the [getssl](https://github.com/srvrco/getssl) tool. See the corresponding [README](getssl/README.md) file.
 
 * You must be careful that the network name ('my-net') is the same as the one defined in Maggot's [run and/or local.conf files.](https://github.com/inrae/pgd-mmdt/blob/main/run).
 

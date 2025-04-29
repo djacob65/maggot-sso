@@ -1,4 +1,4 @@
-## GETSSL : Obtain SSL certificates from the letsencrypt.org ACME server
+## Obtain SSL certificates from the letsencrypt.org ACME server
 
 * See https://github.com/srvrco/getssl
 
