@@ -20,7 +20,7 @@ Requirements:
 
         Step 1: Clone this repository, then `cd` to your clone path.
 
-            $ git clone https://github.com/djacob65/maggot-sso.git
+            $ git clone https://github.com/djacob65/maggot-sso.git sso
             $ cd sso
 
         Step 2: Create the docker image:
@@ -88,6 +88,9 @@ KEYCLOAK_ADMIN_PASSWORD=adminpass
 ```shell
 KC_HOSTNAME=mydomain.fr
 ```
+
+* For a secure environment (SSL), You must have up-to-date SSL certificates. Therefore, we recommend using the certificates provided by [Let's Encrypt](https://letsencrypt.org/) and using the [getssl](https://github.com/srvrco/getssl) tool. See the corresponding [README](getssl/README.md) file.
+
 
 ### Notes
 
