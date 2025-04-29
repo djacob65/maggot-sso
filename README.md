@@ -132,10 +132,16 @@ sh ./run restart
 sh ./run ps
 ```
 
-* To authorize HTTP protocol in case you've got the message :"HTTPS required" in the keycloak admin interface
+* In an unsecure environment, to authorize HTTP protocol in case you've got the message :"HTTPS required" in the keycloak admin interface
 
 ```shell
 sh ./run http
+```
+
+* To force the creation of the Keycloak admin account - the password is the one specified in the [keycloak.env](keycloak/keycloak.env) file.
+
+```shell
+sh ./run master
 ```
 
 <br>
