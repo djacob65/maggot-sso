@@ -4,6 +4,6 @@ FROM postgres:16.2
 ENV \
     POSTGRES_DB=keycloak \
     POSTGRES_USER=keycloak \
-    POSTGRES_PASSWORD=kcpass01
+    POSTGRES_PASSWORD=XXXXXX
 
 EXPOSE 5432

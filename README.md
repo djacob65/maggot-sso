@@ -42,37 +42,37 @@ postgres-image    latest        5f01f1db17f8     11 days ago      431MB
 
 ## configuration
 
-* You need to edit the [local.conf](local.conf) file, then adapt parameters, especially the following ones
+* You need to edit the [run](run) file, then adapt parameters, especially the following ones
 
 ```shell
-# Host
-HOST_NAME=10.0.0.106 # Host Name or IP
+# Host Name or IP
+#HOSTNAME=10.0.0.106
+HOSTNAME=mydomain.fr
 
-# Network
-MYNET=my-net
+# Nginx with OIDC
+NGINX_IMAGE=nginx-image
+NGINX_CONTAINER=nginx
+#NGINX_PORT=80
+NGINX_PORT=443
 
-# Application
-APP_NAME=mmdt-web    # container name of Maggot web application
-APP_PORT=80          # http port inside the Maggot web application container
-APP_BASE_URL=/maggot # Base URL of Maggot web application
+# Postgres
+PG_IMAGE=postgres-image
+PG_CONTAINER=postgres
+PG_PORT=5432
+PG_VOL=postgres_data
 
-# Identifier Provider Name
-IP_NAME=KEYCLOAK
+# Keycloak
+KC_IMAGE=keycloak-image
+KC_CONTAINER=keycloak
+#KC_PORT=8080
+KC_PORT=8443
 
-# Keycloak - Client
-KC_REALM=Maggot
-KC_CLIENT=maggot
-KC_SECRET=GUWHrrBXnJp3dtT3Nl15olqDgyxaGGx2
+# NGINX configuration files
+NGINX_SSL=nginx_ssl.conf 
+NGINX_SSL_EXT=nginx_ssl_inrae.conf 
 
-# Keycloak - API Client
-API_CLIENT=api-Maggot
-API_SECRET=FYFBOxpWl6spQ9of62ljGhR7v6NcnBS7
-
-# Use template
-USETMPL=1
-
-# Wait message
-WAITMSG=1
+# External Identity Provider ?
+IP_EXT=0
 ```
 
 * You need to also edit the [keycloak.env](keycloak/keycloak.env) file, then change passwords :
@@ -84,27 +84,26 @@ KEYCLOAK_ADMIN=admin
 KEYCLOAK_ADMIN_PASSWORD=adminpass
 ```
 
+* For a secure environment (SSL), you need to specify the domain name in the [keycloak_ssl.env](keycloak/keycloak_ssl.env)
+```shell
+KC_HOSTNAME=mydomain.fr
+```
+
 ### Notes
 
 * You must be careful that the network name ('my-net') is the same as the one defined in Maggot's [run and/or local.conf files.](https://github.com/inrae/pgd-mmdt/blob/main/run).
 
-* The APP_NAME parameter must be equal to the WEB_CONTAINER parameter defined in Maggot's [run and/or local.conf files.](https://github.com/inrae/pgd-mmdt/blob/main/run).
+* The server 'mmdt-web' in the nginx configuration file must be equal to the WEB_CONTAINER parameter defined in Maggot's [run and/or local.conf files.](https://github.com/inrae/pgd-mmdt/blob/main/run).
 
-* For Keycloak parameters, see the [Wiki page](https://github.com/djacob65/maggot-sso/wiki/Single-Sign-On)
+* In case Maggot must be accessible from outside of your network (internet), you must ensure that the application web port (80) as well as the keycloak web port (8080 or 8443) are open and accessible beyond the various firewalls, starting with the one that is possibly installed on the host machine.
 
-* In case Maggot must be accessible from outside of your network (internet), you must ensure that the application web port (80) as well as the keycloak web port (8080) are open and accessible beyond the various firewalls, starting with the one that is possibly installed on the host machine.
-
-* If USETMPL is equal to 1 then the [nginx.conf](nginx/nginx.conf) file will be automatically generated based on the corresponding template [nginx-conf.template](nginx/nginx-conf.template) file. Otherwise it will be used as it is.
-
-* if WAITMSG is equal to 1 then a waiting message will be appear after starting, indicating when the keycloak will have finished its configuration (~ 15 sec)
-
-* You must first start the SSO layer (see below) to access the keycloak interface (here http://10.0.0.106:8080). Once the different elements are configured, the settings in the local.conf file must be modified to match those entered in Keycloak. A restart of the SSO layer will therefore be necessary to take the new settings into account.
+* You must first start the SSO layer (see below) to access the keycloak interface (e.g http://10.0.0.106:8080 or https://mydomain.fr:8443). Once the different elements are configured, the settings in the run file and in the nginx configuration file must be modified to match those entered in Keycloak. A restart of the SSO layer will therefore be necessary to take the new settings into account.
 
 <br>
 
 ## Usage
 
-* **Note**: The Maggot application must be started first. Otherwise, an error occurs when starting the nginx container because the server "APP_NAME" (the APP_NAME must be the name of the maggot web application container) is not recognized as available.
+* **Note**: The Maggot application must be started first. Otherwise, an error occurs when starting the nginx container because the server "mmdt-web" will not be recognized as available.
 
 * To start the *SSO* layer 
 
@@ -140,9 +139,9 @@ sh ./run http
 
 * Based on the default configuration provided (see above):
     
-      * The Maggot URL is http://10.0.0.106/maggot/
+      * The Maggot URL is https://mydomain.fr/maggot/
 
-      * The Keycloak interface URL is http://10.0.0.106:8080
+      * The Keycloak interface URL is https://mydomain.fr:8443
 
 <br>
 
