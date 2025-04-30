@@ -47,14 +47,17 @@ postgres-image    latest        5f01f1db17f8     11 days ago      431MB
 
 ```shell
 # Host Name or IP
-#HOSTNAME=10.0.0.106
 HOSTNAME=mydomain.fr
 
 # Nginx with OIDC
 NGINX_IMAGE=nginx-image
 NGINX_CONTAINER=nginx
-#NGINX_PORT=80
 NGINX_PORT=443
+
+# NGINX configuration file
+#NGINX_CONF=nginx.conf
+NGINX_CONF=nginx_ssl.conf 
+#NGINX_CONF=nginx_ssl_inrae.conf 
 
 # Postgres
 PG_IMAGE=postgres-image
@@ -66,15 +69,7 @@ PGDATA_DIR=/opt/mydomain/pgdata_save
 # Keycloak
 KC_IMAGE=keycloak-image
 KC_CONTAINER=keycloak
-#KC_PORT=8080
 KC_PORT=8443
-
-# NGINX configuration files
-NGINX_SSL=nginx_ssl.conf 
-NGINX_SSL_EXT=nginx_ssl_inrae.conf 
-
-# External Identity Provider ?
-IP_EXT=0
 ```
 
 * You need to also edit the [keycloak.env](keycloak/keycloak.env) file, then change passwords :

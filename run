@@ -10,6 +10,11 @@ NGINX_IMAGE=nginx-image
 NGINX_CONTAINER=nginx
 NGINX_PORT=443
 
+# NGINX configuration files
+#NGINX_CONF=nginx.conf
+NGINX_CONF=nginx_ssl.conf 
+#NGINX_CONF=nginx_ssl_inrae.conf 
+
 # Postgres
 PG_IMAGE=postgres-image
 PG_CONTAINER=postgres
@@ -21,13 +26,6 @@ PGDATA_DIR=/opt/mydomain/pgdata_save
 KC_IMAGE=keycloak-image
 KC_CONTAINER=keycloak
 KC_PORT=8443
-
-# NGINX configuration files
-NGINX_SSL=nginx_ssl.conf 
-NGINX_SSL_EXT=nginx_ssl_inrae.conf 
-
-# External Identity Provider ?
-IP_EXT=0
 
 # Wait message
 WAITMSG=1
@@ -78,9 +76,6 @@ case "$CMD" in
                     --log-level=info --log="file" --log-file="/tmp/keycloak.log"
     # Start Nginx
         echo -n "Start $NGINX_CONTAINER ($NGINX_IMAGE) (port $NGINX_PORT) :"
-        NGINX_CONF=nginx.conf
-        [ $NGINX_PORT -eq 443 -a $IP_EXT -eq 0 ] && NGINX_CONF=$NGINX_SSL
-        [ $NGINX_PORT -eq 443 -a $IP_EXT -eq 1 ] && NGINX_CONF=$NGINX_SSL_EXT
         $DOCKER run -d -p 80:80 -p $NGINX_PORT:$NGINX_PORT --network=$MYNET \
               -v $MYDIR/nginx/$NGINX_CONF:/etc/nginx/conf.d/default.conf \
               -v $MYDIR/nginx/lua:/opt/lua \
