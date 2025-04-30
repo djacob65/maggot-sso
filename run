@@ -15,6 +15,7 @@ PG_IMAGE=postgres-image
 PG_CONTAINER=postgres
 PG_PORT=5432
 PG_VOL=postgres_data
+PGDATA_DIR=/opt/mydomain/pgdata_save
 
 # Keycloak
 KC_IMAGE=keycloak-image
@@ -115,6 +116,22 @@ case "$CMD" in
         KC_OPT1="config credentials --realm master --server http://$HOSTNAME:$KC_PORT --user admin"
         KC_OPT2="update realms/master -s sslRequired=NONE"
         $DOCKER exec -t $KC_CONTAINER /bin/bash -c "$KC_CMD $KC_OPT1 --password=\"\$KEYCLOAK_ADMIN_PASSWORD\"; $KC_CMD $KC_OPT2"
+    ;;
+    pgsave)
+        DATE_INFO=$(date "+%Y%m%d-%H%M%S")
+        $DOCKER run --rm --mount source=${PG_VOL},target=/mnt -v ${PGDATA_DIR}:/backup busybox \
+                tar -cvzf /backup/pgdata-${DATE_INFO}.tar.gz /mnt
+        (
+            cd $PGDATA_DIR
+            [ -f pgdata.tar.gz ] && sudo rm -f pgdata.tar.gz
+            sudo ln -s pgdata-${DATE_INFO}.tar.gz pgdata.tar.gz
+        )
+    ;;
+    pgrestore)
+        if [ -f ${PGDATA_DIR}/pgdata.tar.gz ]; then
+             $DOCKER run --rm --mount source=${PG_VOL},target=/mnt -v ${PGDATA_DIR}:/backup busybox \
+                    tar -xvzf /backup/pgdata.tar.gz -C /
+        fi
     ;;
     ps)
         $DOCKER ps | head -1

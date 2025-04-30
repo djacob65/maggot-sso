@@ -60,6 +60,7 @@ PG_IMAGE=postgres-image
 PG_CONTAINER=postgres
 PG_PORT=5432
 PG_VOL=postgres_data
+PGDATA_DIR=/opt/mydomain/pgdata_save
 
 # Keycloak
 KC_IMAGE=keycloak-image
