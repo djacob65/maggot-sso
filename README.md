@@ -145,6 +145,18 @@ sh ./run http
 sh ./run master
 ```
 
+* To save the keycloak configuration stored in the postgres db (docker volume)
+
+```shell
+sh ./run pgsave
+```
+
+* To restore the keycloak configuration into the postgres db (docker volume)
+
+```shell
+sh ./run pgrestore
+```
+
 <br>
 
 * Based on the default configuration provided (see above):
