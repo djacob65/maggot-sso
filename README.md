@@ -20,6 +20,7 @@ Requirements:
 
         Step 1: Clone this repository, then `cd` to your clone path.
 
+            $ cd /opt/mydomain
             $ git clone https://github.com/djacob65/maggot-sso.git sso
             $ cd sso
 
