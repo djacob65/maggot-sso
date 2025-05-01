@@ -1,6 +1,6 @@
 ## Obtain SSL certificates from the letsencrypt.org ACME server
 
-* See https://github.com/srvrco/getssl
+* See https://github.com/srvrco/getssl/wiki - https://www.linuxdocs.net/guides/getssl.html
 
 * Edit ~/.getssl/getssl.cfg to set the values you want as the default for the majority of your certificates.
 
