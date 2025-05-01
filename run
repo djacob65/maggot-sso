@@ -29,6 +29,7 @@ KC_PORT=8443
 
 # Wait message
 WAITMSG=1
+KC_NL_LOG=20
 
 # Network
 MYNET=my-net
@@ -86,7 +87,7 @@ case "$CMD" in
               --name $NGINX_CONTAINER $NGINX_IMAGE
        if [ $WAITMSG  -eq 1 ]; then
            echo -n "Wait for Keycloak to finish its setup : "
-           while [ $($DOCKER exec -t $KC_CONTAINER /bin/bash -c "cat /tmp/keycloak.log" | wc -l) -lt 20 ]; do echo -n "."; sleep 1; done
+           while [ $($DOCKER exec -t $KC_CONTAINER /bin/bash -c "cat /tmp/keycloak.log" | wc -l) -lt $KC_NL_LOG ]; do echo -n "."; sleep 1; done
            echo OK
        fi
     ;;
