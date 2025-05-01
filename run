@@ -68,6 +68,7 @@ case "$CMD" in
         echo -n "Start $KC_CONTAINER ($KC_IMAGE) (port $KC_PORT) : "
         ENV_SSL=""
         [ ! -d $MYDIR/logs ] && sudo mkdir $MYDIR/logs
+        [ -d $MYDIR/logs/vertx-cache ] && sudo rm -rf $MYDIR/logs/vertx-cache
         sudo echo '' > $MYDIR/logs/keycloak.log
         [ $KC_PORT -eq 8443 ] && ENV_SSL="--env-file $MYDIR/keycloak/keycloak_ssl.env" 
         sudo chmod 644 $MYDIR/certs/*
