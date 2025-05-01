@@ -4,7 +4,7 @@
 
 * Implement [Single Sign-On](https://en.wikipedia.org/wiki/Single_sign-on) (SSO) authentication for the Maggot application.
 
-* For management within a collective that goes beyond a simple intranet, it may be necessary to set up an authentication layer. Setting up such a layer can be done independently of the Maggot tool, i.e. without modifying its code or configuration. The proposed implementation can serve as a basis for a larger configuration.
+* For management within a collective that goes beyond a simple intranet, it may be necessary to set up an authentication layer. Setting up such a layer can be done independently of the Maggot tool, i.e. without modifying its code. However, its configuration may need to be adapted very slightly. The proposed implementation can serve as a basis for a larger configuration.
 
 * See the [Wiki page](https://github.com/djacob65/maggot-sso/wiki/Single-Sign-On) for more details
 
