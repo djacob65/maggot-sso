@@ -66,7 +66,8 @@ case "$CMD" in
     # Start Keycloak
         echo -n "Start $KC_CONTAINER ($KC_IMAGE) (port $KC_PORT) : "
         ENV_SSL=""
-        [ $WAITMSG  -eq 1 ] && sudo echo '' > $MYDIR/logs/keycloak.log
+        [ ! -d $MYDIR/logs ] && sudo mkdir $MYDIR/logs
+        sudo echo '' > $MYDIR/logs/keycloak.log
         [ $KC_PORT -eq 8443 ] && ENV_SSL="--env-file $MYDIR/keycloak/keycloak_ssl.env" 
         sudo chmod 644 $MYDIR/certs/*
         $DOCKER run -d -p $KC_PORT:$KC_PORT --network=$MYNET --env-file $MYDIR/keycloak/keycloak.env $ENV_SSL \
