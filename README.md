@@ -95,9 +95,9 @@ KC_HOSTNAME=mydomain.fr
 
 * The server 'mmdt-web' in the nginx configuration file must be equal to the WEB_CONTAINER parameter defined in Maggot's [run and/or local.conf files.](https://github.com/inrae/pgd-mmdt/blob/main/run).
 
-* In case Maggot must be accessible from outside of your network (internet), you must ensure that the application web port (80) as well as the keycloak web port (8080 or 8443) are open and accessible beyond the various firewalls, starting with the one that is possibly installed on the host machine.
+* In case Maggot must be accessible from outside of your network (internet), you must ensure that the application web port (80 or 443) as well as the keycloak web port (8080 or 8443) are open and accessible beyond the various firewalls, starting with the one that is possibly installed on the host machine.
 
-* You must first start the SSO layer (see below) to access the keycloak interface (e.g http://10.0.0.106:8080 or https://mydomain.fr:8443). Once the different elements are configured, the settings in the run file and in the nginx configuration file must be modified to match those entered in Keycloak. A restart of the SSO layer will therefore be necessary to take the new settings into account.
+* You must first start the Maggot application and also any other applications referenced into the nginx configuration file, then start the SSO layer (see below) to access the keycloak interface (e.g http://10.0.0.106:8080 or https://mydomain.fr:8443). Once the different elements are configured, the settings in the run file and in the nginx configuration file must be modified to match those entered in Keycloak. A restart of the SSO layer will therefore be necessary to take the new settings into account.
 
 <br>
 
