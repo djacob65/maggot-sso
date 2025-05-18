@@ -2,7 +2,7 @@
 
 ### Purpose
 
-* Access to resources provided by the Web API using a Web Token obtained from the Authentication Portal as a single identity provider. Example with the pre-production INRAE ​​Authentication Portal (INRAE ​​Portal for short).
+* Access to resources provided by the Web API using a Web Token obtained from the Authentication Portal as a single identity provider. Example with the pre-production INRAE ​​Authentication Portal (INRAE ​​Portal for short). See the [SSO and INRAE Portal](https://github.com/djacob65/maggot-sso/wiki/SSO-and-INRAE-Portal#2---inrae-portal-preproduction-as-a-unique-identity-provider)  section.
 
 ### Implementation
 
