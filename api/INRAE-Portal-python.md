@@ -1,9 +1,5 @@
 ## INRAE authentication portal via API
 
-* https://am.wiki.intranet.inrae.fr/doku.php?id=public:corpus:protocole:oidc:informationtechnique:start
-* https://test-oidc.recette.inrae.fr/prod/
-* https://test-saml.recette.inrae.fr/prod/
-
 ### 1 - Generates an authentication code (valid for 1 min)
 
 
