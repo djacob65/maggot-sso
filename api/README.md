@@ -8,7 +8,7 @@
 
 * A script written in python (_sso_oidc_tools.py_) implements the complete workflow simulating authentication as if it had been established via a web browser. It provides a web token which then allows you to call the API while being authenticated. Installation of some packages may be necessary as _requests_, _beautifulsoup4_ and _pyjwt_.
 
-* A file containing the credentials must be configured with the correct URLs and credentials.
+* A file containing the credentials must be configured with the correct URLs and credentials. This information was provided to you by the identity provider administrator.
     
     ```
     # Authentication portal
@@ -25,6 +25,7 @@
     PASSWORD=<password>
     ```
 
+* Similarly, you must configure the nginx file (in our example, **_[nginx_ssl_inrae.fr](../nginx/nginx_ssl_inrae.fr)_**) so that the information regarding the corresponding client is identical.
 
 ### Usage
 
