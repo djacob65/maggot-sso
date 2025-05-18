@@ -6,7 +6,7 @@
 
 ### Implementation
 
-* A script written in python (sso_oidc_tools.py) implements the complete workflow simulating authentication as if it had been established via a web browser. It provides a web token which then allows you to call the API while being authenticated.
+* A script written in python (_sso_oidc_tools.py_) implements the complete workflow simulating authentication as if it had been established via a web browser. It provides a web token which then allows you to call the API while being authenticated. Installation of some packages may be necessary as _requests_, _beautifulsoup4_ and _pyjwt_.
 
 * A file containing the credentials must be configured with the correct URLs and credentials.
     
@@ -21,7 +21,7 @@
     CLIENT_SECRET=<client_secret>
     
     # User
-    USERNAME=<user>
+    USERNAME=<username>
     PASSWORD=<password>
     ```
 
@@ -69,12 +69,13 @@
     # Decode the payload 
     echo $TOKEN | sed -e "s/\./\n/g" | head -2 | tail -1 | base64 --decode 2>/dev/null | jq
 
-    # Make API calls via the SSO layer
-	# Alias CURL_API
+    # Alias CURL_API
     alias CURL_API="curl -s -H 'accept: application/json' -H 'API-KEY: XX' -H \"Authorization: Bearer $TOKEN\" -X GET"
 
     # Web API URL
     API_URL="https://wapnmr.fr/maggot/metadata"
+
+    # Make API calls via the SSO layer
     CURL_API  $API_URL/frim1?format=maggot | jq
     ```
 
