@@ -116,6 +116,10 @@ case "$CMD" in
         KC_OPT2="update realms/master -s sslRequired=NONE"
         $DOCKER exec -t $KC_CONTAINER /bin/bash -c "$KC_CMD $KC_OPT1 --password=\"\$KEYCLOAK_ADMIN_PASSWORD\"; $KC_CMD $KC_OPT2"
     ;;
+    kc-config) # Show KC features
+        KC_CMD=/opt/keycloak/bin/kc.sh
+        $DOCKER exec -t $KC_CONTAINER /bin/bash -c "$KC_CMD show-config"
+    ;;
     pgsave)
         DATE_INFO=$(date "+%Y%m%d-%H%M%S")
         $DOCKER run --rm --mount source=${PG_VOL},target=/mnt -v ${PGDATA_DIR}:/backup busybox \
