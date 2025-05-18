@@ -25,7 +25,7 @@
     PASSWORD=<password>
     ```
 
-* Similarly, you must configure the nginx file (in our example, **_[nginx_ssl_inrae.fr](../nginx/nginx_ssl_inrae.fr)_**) so that the information regarding the corresponding client is identical.
+* Similarly, you must configure the nginx file (in our example, **_[nginx_ssl_inrae.conf](../nginx/nginx_ssl_inrae.conf)_**) so that the information regarding the corresponding client is identical.
 
 ### Usage
 
