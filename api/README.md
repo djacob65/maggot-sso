@@ -119,8 +119,10 @@
     ```bash
     #!/bin/bash
 
-    # Get credentials (URLs, client ID/secret code, User/Password)
+    # Credentials file (URLs, client ID/secret code, User/Password)
     CREDENTIALS=.secret/inrae-credentials
+
+    # Python script
     SSO_OIDC_SCRIPT="python sso_oidc_tools.py"
 
     # Web API URL
