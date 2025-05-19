@@ -10,7 +10,7 @@
 
 ### 1 - Local Identity Provider managed by keycloak
 
-* We use the service account defined by keycloak, so we don't need to specify a username with his password. A file containing the credentials must be configured with the correct URL and client credentials. Information regarding the corresponding client must be identical in the nginx file (in our example, **_[nginx_ssl.conf](../nginx/nginx_ssl.conf)_**).
+* We use the service account defined by keycloak, so we don't need to specify a username with his password. A file containing the credentials must be configured with the correct URL and client credentials. Information regarding the corresponding client must be identical in the nginx file (in our example, **_[nginx_ssl.conf](../nginx/nginx_ssl.conf)_**). See [this]( https://github.com/djacob65/maggot-sso/wiki/Single-Sign-On#2---access-to-resources-provided-by-the-web-api-using-a-web-token) for more details.
 
     ```
     # Authentication portal managed by Keycloak
