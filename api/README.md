@@ -27,7 +27,7 @@
     #!/bin/bash
 
     # Get credentials (client ID, secret code)
-    CREDENTIALS=.secret/keycloak-credentials
+    . .secret/keycloak-credentials
 
     # Web API URL
     API_URL="https://mydomain.fr/maggot/metadata"
