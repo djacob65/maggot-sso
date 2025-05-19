@@ -23,7 +23,7 @@
     CLIENT_SECRET=<client_secret>
     ```
 
-* Here is a simple bash script
+* Here is a simple bash script using [cURL](https://en.wikipedia.org/wiki/CURL) and [./jq](https://jqlang.github.io/jq/download/)
 
     ```bash
     #!/bin/bash
@@ -117,7 +117,7 @@
 
     ```
 
-* Here is a simple bash script
+* Here is a simple bash script using [cURL](https://en.wikipedia.org/wiki/CURL) and [./jq](https://jqlang.github.io/jq/download/)
 
     ```bash
     #!/bin/bash
