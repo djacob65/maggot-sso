@@ -14,11 +14,11 @@
 
     ```
     # Authentication portal managed by Keycloak
-    OAUTH2=https://wapnmr.fr:8443/realms/Maggot/protocol/openid-connect
+    OAUTH2=https://mydomain.fr:8443/realms/Maggot/.well-known/openid-configuration
 
     # Keycloak API-dedicated client
     CLIENT_ID=api-maggot
-    CLIENT_SECRET=<client_secret>    
+    CLIENT_SECRET=14RdoHCQhL9Zxm2kyD6WL9qkhY8gmrq7
     ```
 
 * Here is a simple bash script
@@ -30,7 +30,7 @@
     CREDENTIALS=.secret/keycloak-credentials
 
     # Web API URL
-    API_URL="https://wapnmr.fr/maggot/metadata"
+    API_URL="https://mydomain.fr/maggot/metadata"
     
     # Default Dataset and Format
     DATASET=frim1
@@ -59,7 +59,7 @@
     CURL_API  $API_URL/$DATASET?format=$FORMAT | jq
     ```
 
-* See the example with its outputs : [API-Service-account](https://github.com/djacob65/maggot-sso/blob/main/api/API-Service-account.md)
+* See the example with its outputs : [API-Service-account](https://github.com/djacob65/maggot-sso/blob/main/api/API_Service-account.md)
 
 <br><br>
 
@@ -74,7 +74,7 @@
     ```
     # Authentication portal
     OAUTH2=https://authentification.preproduction.inrae.fr/oauth2
-    REDIRECT=https://wapnmr.fr/maggot/redirect_uri
+    REDIRECT=https://mydomain.fr/maggot/redirect_uri
     SCOPE=openid+profile+email+supannEntiteAffectation
     
     # Client
@@ -101,8 +101,8 @@
       --debug      Enables debug mode
 
     $ python ./sso_oidc_tools.py --file .secret/inrae-credentials --debug
-    Initial URL : https://authentification.preproduction.inrae.fr/oauth2/authorize?response_type=code&client_id=MAGGOT-TEST-WAPNMR&redirect_uri=https://wapnmr.fr/maggot/redirect_uri&scope=openid+profile+email+supannEntiteAffectation
-    Redirection vers : https://wapnmr.fr/maggot/redirect_uri?session_state=T%2Fik97%2BdwIJkYXqQptqSDvRChYr5evvOHJoH4YKx%2FDg%3D.cDQzaG1rREw4L0J5QXE2U0xNTVpTckJ1N2k4anJuZzFyNXpCWVl2N0Rnd284dFV0eGp0WnVobmRJeVl0QlZnakQvMHRQa1lYNnVBdkE2UE5UME9JSG9zeU16Q0x3dnlYVWR5dmp4aGQyRms9&code=2215cf0cda2b6a304335ec7cb82c4bf2a93132789e46c586107126d9ede32aec
+    Initial URL : https://authentification.preproduction.inrae.fr/oauth2/authorize?response_type=code&client_id=MAGGOT-TEST-WAPNMR&redirect_uri=https://mydomain.fr/maggot/redirect_uri&scope=openid+profile+email+supannEntiteAffectation
+    Redirection vers : https://mydomain.fr/maggot/redirect_uri?session_state=T%2Fik97%2BdwIJkYXqQptqSDvRChYr5evvOHJoH4YKx%2FDg%3D.cDQzaG1rREw4L0J5QXE2U0xNTVpTckJ1N2k4anJuZzFyNXpCWVl2N0Rnd284dFV0eGp0WnVobmRJeVl0QlZnakQvMHRQa1lYNnVBdkE2UE5UME9JSG9zeU16Q0x3dnlYVWR5dmp4aGQyRms9&code=2215cf0cda2b6a304335ec7cb82c4bf2a93132789e46c586107126d9ede32aec
     Code = 2215cf0cda2b6a304335ec7cb82c4bf2a93132789e46c586107126d9ede32aec
     {
         "expires_in": 3600,
@@ -124,7 +124,7 @@
     SSO_OIDC_SCRIPT="python sso_oidc_tools.py"
 
     # Web API URL
-    API_URL="https://wapnmr.fr/maggot/metadata"
+    API_URL="https://mydomain.fr/maggot/metadata"
     
     # Default Dataset and Format
     DATASET=frim1
