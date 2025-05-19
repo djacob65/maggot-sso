@@ -84,7 +84,6 @@ def get_session():
 # -----
 
 def get_auth_code(pars, debug=0):
-
     # Creates a Session to manage cookies, headers, persistent connections
     session = get_session()
 
@@ -156,8 +155,6 @@ def get_auth_code(pars, debug=0):
 # -----
 
 def get_token(pars, code, debug=0):
-
-    #global session
     # Creates a Session to manage cookies, headers, persistent connections
     session = get_session()
 

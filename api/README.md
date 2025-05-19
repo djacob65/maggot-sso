@@ -4,11 +4,11 @@
 
 * Access to resources provided by the Web API using a Web Token obtained from the Authentication Portal.
 
-* Depending on the solution we choose, i.e either an external Identity Provider (e.g INRAE portal) or a local Identity Provider managed by keycloak, we have to proceed in a different way.
+* Depending on the Identity Provider we choose, i.e either LemonLDAP::NG  (e.g INRAE portal) or Keycloak, we have to proceed in a different way.
 
 <br><br>
 
-### 1 - Local Identity Provider managed by keycloak
+### 1 - Identity Provider managed by keycloak
 
 * We use the service accounts defined by keycloak, i.e. non-interactive accounts with a client_id / client_secret that can obtain a token without user authentication (via client_credentials grant). In this way, we don't need to specify a username with his password.
 
@@ -65,7 +65,7 @@
 
 <br><br>
 
-### 2 - External Identity Provider
+### 2 - Identity Provider managed by LemonLDAP::NG
 
 * Example with the pre-production INRAE Authentication Portal (INRAE Portal for short). See the [SSO and INRAE Portal](https://github.com/djacob65/maggot-sso/wiki/SSO-and-INRAE-Portal#2---inrae-portal-preproduction-as-a-unique-identity-provider)  section. 
 
