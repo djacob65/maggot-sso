@@ -10,7 +10,9 @@
 
 ### 1 - Local Identity Provider managed by keycloak
 
-* We use the service account defined by keycloak, so we don't need to specify a username with his password. A file containing the credentials must be configured with the correct URL and client credentials. Information regarding the corresponding client must be identical in the nginx file (in our example, **_[nginx_ssl.conf](../nginx/nginx_ssl.conf)_**). See [this]( https://github.com/djacob65/maggot-sso/wiki/Single-Sign-On#2---access-to-resources-provided-by-the-web-api-using-a-web-token) for more details.
+* We use the service account defined by keycloak, i.e. non-interactive accounts with a client_id / client_secret that can obtain a token without user authentication (via client_credentials grant). In this way, we don't need to specify a username with his password.
+
+* A file containing the credentials must be configured with the correct URL and client credentials. Information regarding the corresponding client must be identical in the nginx file (in our example, **_[nginx_ssl.conf](../nginx/nginx_ssl.conf)_**). See [this]( https://github.com/djacob65/maggot-sso/wiki/Single-Sign-On#2---access-to-resources-provided-by-the-web-api-using-a-web-token) for more details.
 
     ```
     # Authentication portal managed by Keycloak
@@ -65,11 +67,12 @@
 
 ### 2 - External Identity Provider
 
-* Example with the pre-production INRAE Authentication Portal (INRAE Portal for short). See the [SSO and INRAE Portal](https://github.com/djacob65/maggot-sso/wiki/SSO-and-INRAE-Portal#2---inrae-portal-preproduction-as-a-unique-identity-provider)  section.
+* Example with the pre-production INRAE Authentication Portal (INRAE Portal for short). See the [SSO and INRAE Portal](https://github.com/djacob65/maggot-sso/wiki/SSO-and-INRAE-Portal#2---inrae-portal-preproduction-as-a-unique-identity-provider)  section. 
 
 * A script written in python (_sso_oidc_tools.py_) implements the complete workflow simulating authentication as if it had been established via a web browser. It provides a web token which then allows you to call the API while being authenticated. Installation of some packages may be necessary as _requests_, _beautifulsoup4_ and _pyjwt_.
 
-* A file containing the credentials must be configured with the correct URLs and credentials. This information was provided to you by the identity provider administrator. Information regarding the corresponding client must be identical in the nginx file (in our example, **_[nginx_ssl_inrae.conf](../nginx/nginx_ssl_inrae.conf)_**).
+* A file containing the credentials must be configured with the correct URLs and credentials. This information was provided to you by the identity provider administrator. Information regarding the corresponding client must be identical in the nginx file (in our example, **_[nginx_ssl_inrae.conf](../nginx/nginx_ssl_inrae.conf)_**). Unfortunately, the INRAE portal managed by LemonLDAP does not support service accounts like Keycloak. We will therefore need to specify a user's credentials.
+
     
     ```
     # Authentication portal
