@@ -86,11 +86,10 @@ echo $TOKEN | sed -e "s/\./\n/g" | head -2 | tail -1 | base64 --decode 2>/dev/nu
 # Alias CURL_API
 alias CURL_API="curl -s -H 'accept: application/json' -H 'API-KEY: XX' -H \"Authorization: Bearer $TOKEN\" -X GET"
 
-# Web API URL
-API_URL="https://wapnmr.fr/maggot/metadata"
+# Maggot API URL
+API_URL="https://wapnmr.fr/maggot/api"
 
-# Note : Think to set DEV=0 in web/inc/config/config.inc
-CURL_API  $API_URL/frim1?format=maggot | jq
+CURL_API  $API_URL/frim1 | jq
 ```
 
     {

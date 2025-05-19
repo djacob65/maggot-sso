@@ -4,7 +4,7 @@
 
 * Access to resources provided by the Web API using a Web Token obtained from the Authentication Portal.
 
-* Depending on the Identity Provider we choose, i.e either LemonLDAP::NG  (e.g INRAE portal) or Keycloak, we have to proceed in a different way.
+* Depending on the Identity Provider we choose, i.e either Keycloak or LemonLDAP::NG (e.g INRAE portal), we have to proceed in a different way.
 
 <br><br>
 
@@ -31,8 +31,8 @@
     # Get credentials (client ID, secret code)
     . .secret/keycloak-credentials
 
-    # Web API URL
-    API_URL="https://mydomain.fr/maggot/metadata"
+    # Maggot API URL
+    API_URL="https://mydomain.fr/maggot/api"
     
     # Default Dataset and Format
     DATASET=frim1
@@ -46,19 +46,19 @@
     JSON=$(curl -s X POST -H 'Accept: application/json' \
           -d "client_id=$CLIENT_ID" -d "client_secret=$CLIENT_SECRET" \
           -d 'grant_type=client_credentials' $OAUTH2/token)
-    echo $JSON | jq
+    echo $JSON | jq 1>&2
     
     # Get the token to make API calls via the SSO layer
     TOKEN=$(echo $JSON | jq -r '.access_token')
     
     # Decode the payload (optional)
-    echo $TOKEN | sed -e "s/\./\n/g" | head -2 | tail -1 | base64 --decode 2>/dev/null | jq
+    echo $TOKEN | sed -e "s/\./\n/g" | head -2 | tail -1 | base64 --decode 2>/dev/null | jq 1>&2
     
     # Alias CURL_API
     alias CURL_API="curl -s -H 'accept: application/json' -H 'API-KEY: XX' -H \"Authorization: Bearer $TOKEN\" -X GET"
     
     # Make API calls via the SSO layer
-    CURL_API  $API_URL/$DATASET?format=$FORMAT | jq
+    CURL_API  $API_URL/$DATASET/$FORMAT | jq
     ```
 
 * See the example with its outputs : [API-Service-account](https://github.com/djacob65/maggot-sso/blob/main/api/API_Service-account.md)
@@ -128,8 +128,8 @@
     # Python script
     SSO_OIDC_SCRIPT="python sso_oidc_tools.py"
 
-    # Web API URL
-    API_URL="https://mydomain.fr/maggot/metadata"
+    # Maggot API URL
+    API_URL="https://mydomain.fr/maggot/api"
     
     # Default Dataset and Format
     DATASET=frim1
@@ -143,13 +143,13 @@
     TOKEN=$($SSO_OIDC_SCRIPT --file $CREDENTIALS)
 
     # Decode the payload (optional)
-    echo $TOKEN | sed -e "s/\./\n/g" | head -2 | tail -1 | base64 --decode 2>/dev/null | jq
+    echo $TOKEN | sed -e "s/\./\n/g" | head -2 | tail -1 | base64 --decode 2>/dev/null | jq 1>&2
 
     # Alias CURL_API
     alias CURL_API="curl -s -H 'accept: application/json' -H 'API-KEY: XX' -H \"Authorization: Bearer $TOKEN\" -X GET"
 
     # Make API calls via the SSO layer
-    CURL_API  $API_URL/$DATASET?format=$FORMAT | jq
+    CURL_API  $API_URL/$DATASET/$FORMAT | jq
     ```
 
 * See a more detailed example on the python module functions : [INRAE-Portal-python]( https://github.com/djacob65/maggot-sso/blob/main/api/INRAE-Portal-python.md)

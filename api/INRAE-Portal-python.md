@@ -98,7 +98,7 @@ userinfo = sso.get_data_with_bearer(pars['oauth2_url']+'/userinfo', access_token
 
 
 ```python
-api_url = 'https://wapnmr.fr/maggot/metadata/frim1?format=jsonld'
+api_url = 'https://wapnmr.fr/maggot/api/frim1/jsonld'
 metadata = sso.get_data_with_bearer(api_url, id_token, debug=1)
 ```
 
